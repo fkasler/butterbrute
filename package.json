@@ -1,0 +1,15 @@
+{
+  "name": "butterbrute",
+  "version": "1.0.0",
+  "description": "Dump Data from Buttercup Password Vaults",
+  "main": "dump_vault.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "iocane": "^5.1.1",
+    "pako": "^2.1.0"
+  }
+}
