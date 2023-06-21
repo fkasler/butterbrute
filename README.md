@@ -32,5 +32,4 @@ node dump_vault.mjs testvault.bcup password1
 
 It didn't seem like anyone else had built one yet. While working on a CTF, I came across a vault.bcup file and just needed to know what was inside. There was no hashcat mode for cracking buttercup, so I solved the CTF with a PoC in Node.js using the buttercup-core library. It got the job done, but it was extremely inefficient, and I would not use it on a real pen test. What's worth doing is worth overdoing, so I dug into the crypto and built an efficient brute forcer in Rust. It was a fun learning experience, and I found out that Buttercup and all it's crypto is a basically an elaborate Princess Bride reference. Anyway...
 
-Have fun storming the castle!!!
 ![A gif of a movie reference](./sendoff.gif)
