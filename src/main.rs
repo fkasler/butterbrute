@@ -6,6 +6,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::sync::atomic::{AtomicBool, Ordering};
 use rayon::prelude::*;
+use indicatif::{ProgressBar, ProgressStyle};
 
 fn gen_key(password: &str, salt: &str, iterations: u32, key_size: usize) -> String {
    let mut pbkdf2_key = vec![0u8; key_size];
@@ -52,8 +53,16 @@ fn main() {
     let key_size = 512 / 8;
     let file = File::open(password_file).expect("Failed to open password file");
     let reader = BufReader::new(file);
+    let total_lines = reader.lines().count() as u64;
+    let progress_bar = ProgressBar::new(total_lines);
+    progress_bar.set_style(ProgressStyle::with_template("[{elapsed_precise}] {bar:40.cyan/blue} {pos:>7}/{len:7} {msg}")
+      .unwrap()
+      .progress_chars("##-"));
     let should_stop = AtomicBool::new(false);
+    let file = File::open(password_file).expect("Failed to open password file");
+    let reader = BufReader::new(file);
     reader.lines().par_bridge().for_each(|line| {
+        progress_bar.inc(1);
         if should_stop.load(Ordering::Relaxed) {
            return
         }
